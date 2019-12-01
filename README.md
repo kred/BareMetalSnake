@@ -21,11 +21,12 @@ Implementation of fast-paced game for bare-metal RaspberryPi 1 model B. You cont
 
 ## Software
 To properly build game, following packages are needed:
-- GNU Make
-- arm-none-eabi- GNU C for ARM compiler
-- mtools
+- Git (*sudo apt-get install git*)
+- GNU Make (*sudo apt-get install make*)
+- arm-none-eabi- GNU C for ARM compiler (*sudo apt-get install gcc-arm-none-eabi*)
+- mtools (*sudo apt-get install mtools*)
 
-Download or checkout sources, execute:
+Download or checkout sources, execute in *BareMetalSnake* directory:
 > make
 
 to compile and build SD card image. You can then use *dd* to write image to the SD card:

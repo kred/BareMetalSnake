@@ -28,7 +28,10 @@ ASMSRC = $(wildcard $(SRCDIR)/*.s)
 #VPATH = $(SRCDIR):$(INCDIR)
 OBJECTS += $(addprefix $(OBJDIR)/,$(notdir $(CSRC:%.c=%.o) $(ASMSRC:%.s=%.o)))
 
-all: $(OBJDIR)/$(PROJECT).elf $(OBJDIR)/$(PROJECT).bin $(OBJDIR)/$(PROJECT).lst image
+all: prepare $(OBJDIR)/$(PROJECT).elf $(OBJDIR)/$(PROJECT).bin $(OBJDIR)/$(PROJECT).lst image
+
+prepare:
+	@mkdir -p obj
 
 $(OBJDIR)/$(PROJECT).elf: $(OBJECTS)
 	@echo "Linking $@..."

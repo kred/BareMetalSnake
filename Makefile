@@ -53,6 +53,15 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.s
 image:
 	@echo "Creating boot image..."
 	@cp -f $(OBJDIR)/$(PROJECT).bin img/kernel.img
+	@fallocate -l 33M img/partition.img
+	@fallocate -l 1048064 img/zeros.img
+	@mkfs.vfat -f 1 -F 32 -n BOOT img/partition.img
+	@mcopy -i img/partition.img img/bootcode.bin ::/
+	@mcopy -i img/partition.img img/config.txt ::/
+	@mcopy -i img/partition.img img/kernel.img ::/
+	@mcopy -i img/partition.img img/start.elf ::/
+	@cat img/table.img img/zeros.img img/partition.img > img/sdcard.img
+	@echo "SD card image created at: img/sdcard.img"
 
 clean:
 	@echo "Cleaning..."
@@ -61,3 +70,6 @@ clean:
 	@rm -f $(OBJDIR)/$(PROJECT).bin
 	@rm -f $(OBJDIR)/$(PROJECT).lst
 	@rm -f $(OBJDIR)/$(PROJECT).map
+	@rm -f img/partition.img
+	@rm -f img/zeros.img
+	@rm -f img/sdcard.img
